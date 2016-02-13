@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-	<html>
-	<head>
-	  <title>Airbnb</title>
-	  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <html>
+  <head>
+    <title>RVental</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
       <%= csrf_meta_tags %>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
       <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
     </head>
-
-	<body>
-		<%= render 'shared/navbar' %>
-		<%= render 'shared/message' %>
-		<div class="container main-container">
-			<%= yield %>
-		</div>
-
-	</body>
+  <body class="<%= body_class %>">
+    <%= render 'shared/navbar' %>
+    <%= render 'shared/message' %>
+    <div class="main-container">
+      <%= yield %>
+    </div>
+  </body>
 </html>

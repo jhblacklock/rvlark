@@ -1,0 +1,31 @@
+<div class="row">
+	<div class="col-md-3">
+		<ul class="sidebar-list">
+			<li class="sidebar-item"><%= link_to "Your Listing", vehicles_path, class:"sidebar-link active"%></li>
+			<li class="sidebar-item"><%= link_to "Your Reservations", vehicles_path, class:"sidebar-link"%></li>
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Listings
+			</div>
+			<div class="panel-body">
+				<% @vehicles.each do |vehicle| %>
+					<div class="row">
+						<div class="col-md-2">
+							<%= image_tag vehicle.photos[0].image.url(:thumb) if vehicle.photos.length > 0 %>
+						</div>
+						<div class="col-md-7">
+							<h4><%= vehicle.listing_name %></h4>
+						</div>
+						<div class="col-md-3 right">
+							<%= link_to "Update", edit_vehicle_path(vehicle), class: "btn btn-primary"%>
+						</div>
+					</div>
+					<hr/>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

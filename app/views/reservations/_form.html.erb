@@ -1,5 +1,4 @@
-<%= form_for([@room, @room.reservations.new]) do |f| %>
-	
+<%= form_for([@vehicle, @vehicle.reservations.new]) do |f| %>
 	<div class="row">
 		<div class="col-md-6">
 			<label>Check In</label>
@@ -10,13 +9,11 @@
 			<%= f.text_field :end_date, placeholder: 'End Date', class: 'form-control', disabled: 'true', readonly: 'true'  %>
 		</div>
 	</div>
-
-	<%= f.hidden_field :room_id, value: @room.id %>
-	<%= f.hidden_field :price, value: @room.price %>
+	<%= f.hidden_field :vehicle_id, value: @vehicle.id %>
+	<%= f.hidden_field :price, value: @vehicle.price %>
 	<%= f.hidden_field :total, value: 'reservation_total' %>
-	
 	<div id="preview" style = "display:none;">
-		<h4><span id="message"></span></h4>	
+		<h4><span id="message"></span></h4>
 		<table class = "reservation-table">
 			<tbody>
 				<tr>
@@ -30,59 +27,6 @@
 			</tbody>
 		</table>
 	</div>
-
 	<br/>
 	<%= f.submit "Book Now", class: "btn btn-primary" %>
 <% end %>
-
-<script>
-
-	function unavailable(date) {
-		dmy = date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
-		return [$.inArray(dmy, unavailableDates) == -1];
-	}
-
-	$(function() {
-
-		unavailableDates = [];
-
-		$.ajax({
-			url: '/preload',
-			data: {'room_id': <%= @room.id %>},
-			dataType: 'json',
-			success: function(data) {
-
-				$.each(data, function(arrID, arrValue) {
-					for(var d = new Date(arrValue.start_date); d <= new Date(arrValue.end_date); d.setDate(d.getDate() + 1)) {
-						console.log(d);
-						unavailableDates.push($.datepicker.formatDate('dd-mm-yy', d));
-					};
-				});
-				console.log(unavailableDates);
-				$('#reservation_start_date').datepicker({
-					dateFormat: 'dd-mm-yy',
-					minDate: 0,
-					maxDate: '3m',
-					beforeShowDay: unavailable,
-					onSelect: function(selected) {
-						$('#reservation_end_date').datepicker("option", "minDate", selected);
-						$('#reservation_end_date').attr('disabled', false);
-					}
-				});
-
-				$('#reservation_end_date').datepicker({
-					dateFormat: 'dd-mm-yy',
-					minDate: 0,
-					maxDate: '3m',
-					beforeShowDay: unavailable,
-					onSelect: function(selected) {
-						$('#reservation_start_date').datepicker("option", "maxDate", selected);
-					}
-				});
-			}
-		});
-
-		
-
-	});
-</script>

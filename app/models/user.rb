@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :omniauthable
   validates :fullname, length: {maximum: 50}, presence: true
 
-  has_many :rooms
+  has_many :vehicles
   has_many :reservations
 
   def self.from_omniauth(auth)

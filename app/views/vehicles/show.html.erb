@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-body">
-		
+
 		<!-- Image -->
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
@@ -14,13 +14,13 @@
 			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-3 text-center">
-						<%= image_tag avatar_url(@room.user), class:"img-circle avatar-large" %>
+						<%= image_tag avatar_url(@vehicle.user), class:"img-circle avatar-large" %>
 						<br/><br/>
-						<%= @room.user.fullname %>
+						<%= @vehicle.user.fullname %>
 					</div>
 					<div class="col-md-9">
-						<h4><%= @room.listing_name %></h4>
-						<%= @room.address %>
+						<h4><%= @vehicle.listing_name %></h4>
+						<%=# @vehicle.address %>
 
 						<div class="row text-centre row-space-1">
 							<div class="col-sm-3">
@@ -38,16 +38,7 @@
 						</div>
 						<div class="row text-centre row-space-1">
 							<div class="col-sm-3">
-								<%= @room.home_type %>
-							</div>
-							<div class="col-sm-3">
-								<%= @room.accomodate %> <%= @room.accomodate > 1 ? "Guests":"Guest"  %>
-							</div>
-							<div class="col-sm-3">
-								<%= @room.bedroom %> <%= @room.bedroom > 1 ? "Bedrooms":"Bedroom"  %>
-							</div>
-							<div class="col-sm-3">
-								<%= @room.bathroom %> <%= @room.bedroom > 1 ? "Bathrooms":"Bathroom"  %>
+								<%= @vehicle.accomodates %> <%= @vehicle.accomodates > 1 ? "Guests":"Guest"  %>
 							</div>
 						</div>
 
@@ -64,7 +55,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h2>About This Listing</h2>
-				<p><%= @room.summary%></p>
+				<p><%= @vehicle.summary%></p>
 			</div>
 		</div>
 
@@ -78,15 +69,12 @@
 					<div class="row">
 						<div class="col-md-6">
 							<ul class="amenities">
-								<li class="<%= 'text-line-through' unless @room.is_tv%>">TV</li>
-								<li class="<%= 'text-line-through' unless @room.is_kitchen%>">Kitchen</li>
-								<li class="<%= 'text-line-through' unless @room.is_internet%>">Internet</li>	
+								<li class="">#</li>
 							</ul>
 						</div>
 						<div class="col-md-6">
 							<ul class="amenities">
-								<li class="<%= 'text-line-through' unless @room.is_heating %>">Heating</li>
-								<li class="<%= 'text-line-through' unless @room.is_air %>">Air Conditioning</li>
+								<li class="">#</li>
 							</ul>
 						</div>
 					</div>
@@ -138,7 +126,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div id="map">
-					
+
 				</div>
 				<style>
 					#map{
@@ -151,14 +139,14 @@
 			      function initialize() {
 			        var mapCanvas = document.getElementById('map');
 			        var mapOptions = {
-			          center: new google.maps.LatLng(<%= @room.latitude %>, <%= @room.longitude %>),
+			          center: new google.maps.LatLng(<%= @vehicle.latitude %>, <%= @vehicle.longitude %>),
 			          zoom: 14,
 			          mapTypeId: google.maps.MapTypeId.ROADMAP
 			        }
 			        var map = new google.maps.Map(mapCanvas, mapOptions);
 
 			        var marker = new google.maps.Marker({
-			        	position: new google.maps.LatLng(<%= @room.latitude %>, <%= @room.longitude %>),
+			        	position: new google.maps.LatLng(<%= @vehicle.latitude %>, <%= @vehicle.longitude %>),
 			        	title: "Airbnb Clone"
 			        });
 			        marker.setMap(map);
@@ -169,20 +157,20 @@
 			</div>
 		</div>
 
-		<!-- Close by Rooms -->
-		<% if @room.nearbys.size > 0 %>
+		<!-- Close by Vehicles -->
+		<% if @vehicle.nearbys.size > 0 %>
 			<h3>Nearby</h3>
 			<div class="row">
-				<!-- Find nearby rooms within 10 miles radius -->
-				<% for room in @room.nearbys(10) %>
+				<!-- Find nearby vehicles within 10 miles radius -->
+				<% for vehicle in @vehicle.nearbys(10) %>
 					<div class="col-md-3">
 						<div class="panel panel-default">
 							<div class="panel-heading preview">
-								<%= image_tag room.photos[0].image.url(:medium) %>
+								<%= image_tag vehicle.photos[0].image.url(:medium) %>
 							</div>
 							<div class="panel-body">
-								<%= link_to room.listing_name, room %>
-								(<%= room.distance.round(2) %> miles away)
+								<%= link_to vehicle.listing_name, vehicle %>
+								(<%= vehicle.distance.round(2) %> miles away)
 							</div>
 						</div>
 					</div>
