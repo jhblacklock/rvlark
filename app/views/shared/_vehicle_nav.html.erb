@@ -1,0 +1,12 @@
+<div class="col-md-3">
+  <ul class="sidebar-list">
+    <li class="sidebar-item"><%= link_to "Basic Info", edit_vehicle_path, class: "sidebar-link #{'active' if active == :basic}" %></li>
+    <li class="sidebar-item"><%= link_to "Photos", edit_vehicle_path(section: 'photo'), class: "sidebar-link #{'active' if active == :photo}" %></li>
+    <li class="sidebar-item"><%= link_to "Location", edit_vehicle_path(section: 'location'), class: "sidebar-link #{'active' if active == :location}" %></li>
+    <li class="sidebar-item"><%= link_to "Amenities", edit_vehicle_path(section: 'amenities'), class: "sidebar-link #{'active' if active == :amenities}" %></li>
+    <li class="sidebar-item"><%= link_to "Pricing", edit_vehicle_path(section: 'pricing'), class: "sidebar-link #{'active' if active == :pricing}" %></li>
+    <li class="sidebar-item"><%= link_to "Calendar", edit_vehicle_path(section: 'calendar'), class: "sidebar-link #{'active' if active == :calendar}" %></li>
+    <li class="sidebar-item"><%= link_to "Booking", edit_vehicle_path(section: 'booking'), class: "sidebar-link #{'active' if active == :booking}" %></li>
+    <li class="sidebar-item"><%= link_to "Contact Info", edit_vehicle_path(section: 'contact'), class: "sidebar-link #{'active' if active == :contact}" %></li>
+  </ul>
+</div>

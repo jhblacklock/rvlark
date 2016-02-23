@@ -1,0 +1,66 @@
+<div class="modal fade login" id="loginModal">
+  <div class="modal-dialog login animated">
+    <div class="modal-content">
+       <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Log in with</h4>
+          </div>
+          <div class="modal-body">
+            <div class="box">
+               <div class="content">
+                  <div class="social">
+                    <a class="circle linkedin" href="<%= user_omniauth_authorize_path(:linkedin) %>">
+                      <i class="fa fa-linkedin fa-fw"></i>
+                    </a>
+                    <a id="google_login" class="circle google" href="<%= user_omniauth_authorize_path(:google_oauth2) %>">
+                      <i class="fa fa-google-plus fa-fw"></i>
+                    </a>
+                    <a id="facebook_login" class="circle facebook" href="<%= user_omniauth_authorize_path(:facebook) %>">
+                      <i class="fa fa-facebook fa-fw"></i>
+                    </a>
+                  </div>
+                  <div class="division">
+                    <div class="line l"></div>
+                      <span>or</span>
+                    <div class="line r"></div>
+                  </div>
+                  <div class="error"></div>
+                  <div class="form loginBox">
+                    <%= form_for(resource, as: resource_name, url: session_path(resource_name), remote: :true, html: {id: 'login_form'}) do |f| %>
+                      <div class="form-group">
+                        <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.password_field :password, class: 'form-control' %>
+                      </div>
+                      <div>
+                        <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+                        <%= link_to "Forgot password?", new_password_path(resource_name), class: 'pull-right' %><br />
+                      </div>
+                      <%= f.submit "Log in", class: 'btn btn-default btn-login' %>
+                    <% end %>
+                  </div>
+               </div>
+            </div>
+            <div class="box">
+              <div class="content registerBox" style="display:none;">
+               <div class="form">
+                  <%= render 'shared/signup_form' %>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <div class="forgot login-footer">
+              <span>Looking to
+                <a href="javascript: showRegisterForm();">sign up</a>?
+              </span>
+          </div>
+          <div class="forgot register-footer" style="display:none">
+            <span>Already have an account?</span>
+            <a href="javascript: showLoginForm();">Log in</a>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

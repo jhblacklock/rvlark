@@ -1,0 +1,29 @@
+<%= render partial: 'shared/secondary_nav', locals: { active: :vehicles } %>
+<div class="container">
+  <div class="row">
+    <%= render partial: 'shared/vehicle_nav', locals: { active: :calendar } %>
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Your RV Amenities
+          <%= link_to "View RV listing", user_path(current_user.id), class: "pull-right txt-small" %>
+        </div>
+        <div class="panel-body">
+            <%= form_for(@vehicle, url: vehicle_path(@vehicle), html: { method: :put }) do |f| %>
+             <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Calendar</label>
+                    <%# f.text_field :address, placeholder: 'What is your address?', class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+              <div class="actions">
+                <%= f.submit "Save", class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -11,9 +11,11 @@
     </head>
   <body class="<%= body_class %>">
     <%= render 'shared/navbar' %>
+    <%= yield :secondary_nav %>
     <%= render 'shared/message' %>
-    <div class="main-container">
+    <div class="main-container full-width">
       <%= yield %>
     </div>
+    <%= render "shared/login_modal" %>
   </body>
 </html>

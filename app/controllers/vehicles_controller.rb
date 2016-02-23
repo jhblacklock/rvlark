@@ -12,6 +12,7 @@ class VehiclesController < ApplicationController
   end
 
   def index
+    @user = current_user
     @vehicles = current_user.vehicles
   end
 
@@ -25,7 +26,7 @@ class VehiclesController < ApplicationController
       end
 
       @photos = @vehicle.photos
-      redirect_to edit_vehicle_path (@vehicle), notice: "Saved..."
+      redirect_to edit_vehicle_path @vehicle, notice: 'Added!'
     else
       render :new
     end
@@ -38,7 +39,7 @@ class VehiclesController < ApplicationController
           @vehicle.photos.create(image: image)
         end
       end
-      redirect_to edit_vehicle_path(@vehicle), notice: "Updated..."
+      redirect_to edit_vehicle_path(@vehicle), notice: 'Updated!'
     else
       render :edit
     end
@@ -46,7 +47,25 @@ class VehiclesController < ApplicationController
 
   def edit
     if current_user.id == @vehicle.user.id
-     @photos = @vehicle.photos
+      case params[:section]
+      when 'photo'
+        @photos = @vehicle.photos
+        render :photo
+      when 'location'
+        render :location
+      when 'amenities'
+        render :amenities
+      when 'pricing'
+        render :pricing
+      when 'booking'
+        render :booking
+      when 'calendar'
+        render :calendar
+      when 'contact'
+        render :contact
+      else
+        render :edit
+      end
     else
       redirect_to root_path, notice: "You don't have permission."
     end
@@ -60,7 +79,7 @@ class VehiclesController < ApplicationController
 
   def vehicle_params
     params.require(:vehicle).permit(
-        :home_type, :vehicle_type, :accomodates, :listing_name, :summary, :active
+      :home_type, :vehicle_type, :accomodates, :listing_name, :summary, :active
     )
   end
 end

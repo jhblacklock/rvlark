@@ -16,7 +16,7 @@
 					<div class="col-md-3 text-center">
 						<%= image_tag avatar_url(@vehicle.user), class:"img-circle avatar-large" %>
 						<br/><br/>
-						<%= @vehicle.user.fullname %>
+						<%= @vehicle.user.first_name %> <%= @vehicle.user.last_name %>
 					</div>
 					<div class="col-md-9">
 						<h4><%= @vehicle.listing_name %></h4>

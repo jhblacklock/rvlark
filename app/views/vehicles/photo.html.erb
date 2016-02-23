@@ -1,0 +1,35 @@
+<%= render partial: 'shared/secondary_nav', locals: { active: :vehicles } %>
+<div class="container">
+  <div class="row">
+    <%= render partial: 'shared/vehicle_nav', locals: { active: :photo } %>
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Your RV Photos
+          <%= link_to "View RV listing", user_path(current_user.id), class: "pull-right txt-small" %>
+        </div>
+        <div class="panel-body">
+            <%= form_for(@vehicle, url: vehicle_path(@vehicle), html: { method: :put }) do |f| %>
+              <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <span class="btn btn-default btn-file">
+                  <i class="fa fa-cloud-upload fa-lg"></i> Upload Photos
+                  <%= file_field_tag "images[]", type: :file, multiple: true %>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div id="photos">
+            <%= render 'photos/list' %>
+          </div>
+              <div class="actions">
+                <%= f.submit "Save", class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

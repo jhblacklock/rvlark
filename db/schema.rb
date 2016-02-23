@@ -55,7 +55,8 @@ ActiveRecord::Schema.define(version: 20151203014641) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "fullname"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -72,7 +73,7 @@ ActiveRecord::Schema.define(version: 20151203014641) do
 
   create_table "vehicles", force: :cascade do |t|
     t.string   "vehicle_type"
-    t.integer  "accomodates"
+    t.integer  "accommodates"
     t.text     "summary"
     t.boolean  "active"
     t.integer  "user_id"

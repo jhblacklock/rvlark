@@ -1,81 +1,46 @@
-<div class='hot-stuff-bg'>
-  <video preload="auto" loop="loop" id="pretzel-video" class="video-playing" autoplay>
-    <source src="https://a0.muscache.com/airbnb/static/Croatia-P1-1.mp4" type="video/mp4">
-    <source src="https://a0.muscache.com/airbnb/static/Croatia-P1-0.webm" type="video/webm">
-  </video>
-</div>
-<div class='hot-stuff'>
-  <div class="va-container container">
-    <div class="va-middle">
-      <h1 class="txt-white txt-heavy txt-jumbo">HELLO</h1>
-      <h2 class="txt-white txt-heavy">Where do we go?</h2>
-    </div>
-  </div>
-  <div class="hot-stuff-footer">
-    <div class="search">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <div class="form-section">
-                <div class="row">
-                    <form role="form">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="sr-only" for="location">Location</label>
-                          <input type="email" class="form-control" id="location" placeholder="Location">
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <label class="sr-only" for="checkin">Pickup</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="checkin" placeholder="Pickup">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <label class="sr-only" for="checkout">Drop-off</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="checkout" placeholder="Drop-off">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <label class="sr-only" for="guest">Guest</label>
-                          <select id="guest" name="guest" class="form-control">
-                              <option value="1">1 Guest</option>
-                              <option value="2">2 Guests</option>
-                              <option value="3">3 Guests</option>
-                              <option value="4">4 Guests</option>
-                              <option value="5">5 Guests</option>
-                              <option value="6">6 Guests</option>
-                              <option value="7">7 Guests</option>
-                              <option value="8">8 Guests</option>
-                              <option value="9">9 Guests</option>
-                              <option value="10">10 Guests</option>
-                              <option value="11">11 Guests</option>
-                              <option value="12">12 Guests</option>
-                              <option value="13">13 Guests</option>
-                              <option value="14">14 Guests</option>
-                              <option value="15">15 Guests</option>
-                              <option value="16">16+ Guests</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <button type="submit" class="btn btn-default btn-primary">Search</button>
-                      </div>
-                    </form>
-                </div>
-              </div>
-            </div>
+<%= render 'hot_stuff' %>
+<%= render 'masthead' %>
+<div class="container padding">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card card-txt austin-card">
+        <div class="va-container">
+          <div class="va-middle text-center">
+            <a href="#" class="txt-upcase txt-white txt-simple txt-heavy">
+              AUSTIN
+            </a>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="card card-txt new-orleans-card">
+        <div class="va-container">
+          <div class="va-middle text-center">
+            <a href="#" class="txt-upcase txt-white txt-simple txt-heavy">
+              New Orleans
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="card card-txt minneapolis-card">
+        <div class="va-container">
+          <div class="va-middle text-center">
+            <a href="#" class="txt-upcase txt-white txt-simple txt-heavy">
+              Minneapolis
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="txt-center full-width col-sm-12">
+      <a href="#" class="btn btn-default">View More Destinations</a>
+    </div>
   </div>
 </div>
-
+<%= render 'rv_types' %>
