@@ -1,0 +1,39 @@
+<%= render partial: 'shared/secondary_nav', locals: { active: :vehicles } %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <ul class="sidebar-list">
+        <li class="sidebar-item"><%= link_to "Your Listings", vehicles_path, class:"sidebar-link"%></li>
+        <li class="sidebar-item"><%= link_to "Your Reservations", user_reservations_path(current_user), class:"sidebar-link active"%></li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Reservations
+        </div>
+        <div class="panel-body">
+          <% @reservations.each do |reservation| %>
+            <%- vehicle = reservation.vehicle %>
+            <div class="row row-table">
+              <div class="col-md-2 col-middle">
+                <%= image_tag vehicle.photos[0].image.url(:thumb) if vehicle.photos.length > 0 %>
+              </div>
+              <div class="col-md-7 col-middle">
+                <h4><%= link_to vehicle.listing_name, vehicle_path(vehicle), class: 'txt-normal' %></h4>
+                Booked: <%= reservation.duration %>
+                <small>by <%= link_to reservation.user.full_name, reservation.user %></small>
+                <p>Booked on: <%= reservation.booked_on %>
+              </div>
+              <div class="col-md-3 text-right col-middle hidden-sm hidden-xs">
+                <%= link_to "Manage", edit_vehicle_path(vehicle), class: "btn btn-primary"%>
+              </div>
+            </div>
+            <hr/>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

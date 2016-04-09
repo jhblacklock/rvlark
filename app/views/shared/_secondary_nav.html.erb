@@ -7,7 +7,7 @@
         <li><%= link_to 'Dashboard', user_path(current_user), class: "#{'active' if active == :dashboard}" %></li>
         <li><%= link_to 'Profile', edit_user_registration_path, class: "#{'active' if active == :profile}" %></li>
         <li><%= link_to 'Vehicles', vehicles_path, class: "#{'active' if active == :vehicles}" %></li>
-        <li><a href="#">Your Trips</a></li>
+        <li><%= link_to 'Your Trips', trips_user_reservations_path(current_user), class: "#{'active' if active == :reservations}" %></li>
         <li><a href="#">Account Settings</a></li>
       </ul>
     </div>

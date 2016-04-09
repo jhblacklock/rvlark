@@ -1,0 +1,106 @@
+<div class="container-fluid">
+  <div class="row-offcanvas row-offcanvas-left">
+     <div class="sidebar-offcanvas" id="sidebar" role="navigation">
+        <div class="row visible-xs">
+          <div class="col-lg-12">
+            <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="row">
+              <%= form_for(search_vehicles_gate_path, remote: true) do %>
+                <div class="col-md-12">
+                  <label for="guest">Location</label>
+                  <div class="form-group">
+                    <label class="sr-only" for="location">Location</label>
+                    <%= text_field_tag :location, params[:location] || 'Austin, TX', class: "form-control", id: "location" %>
+                  </div>
+                  <hr>
+                </div>
+                <div class="col-md-12">
+                  <label for="guest">Dates</label>
+                  <div class="form-group">
+                    <label class="sr-only" for="checkin">Pickup</label>
+                    <%= text_field_tag :pickup, params[:pickup] || (Date.today).strftime('%x'), class: "form-control", id: "pickup" %>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="sr-only" for="checkout">Drop-off</label>
+                      <%= text_field_tag :dropoff, params[:dropoff] || (Date.today + 2).strftime('%x'), class: "form-control", id: "dropoff" %>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="sr-only" for="passengers">Passengers</label>
+                    <%= select_tag :guests, options_for_select(Vehicle::PASSENGERS, params[:passengers] || 1) %>
+                  </div>
+                  <hr>
+                </div>
+                  <div class="form-group row row-no-margin">
+                    <div class="col-md-12">
+                      <label for="guest">Price Range</label>
+                    </div>
+                    <div class="col-md-6">
+                      <%= select_tag :min_price, options_for_select(Vehicle::MIN_PRICES, params[:min_price] || 100) %>
+                    </div>
+                    <div class="col-md-6">
+                      <%= select_tag :max_price, options_for_select(Vehicle::MAX_PRICES, params[:max_price] || 1001) %>
+                    </div>
+                  </div>
+                  <hr>
+                <div class="col-md-12">
+                  <div class="form-group">
+                  <label for="guest">Type</label>
+                    <div class='checkboxes'>
+                      <%- Vehicle::TYPES.each do |type| %>
+                        <div class="checkbox">
+                          <%= check_box :type, type.second %>
+                          <%= label_tag :type, type.first %>
+                          </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <p class="visible-xs">
+          <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
+        </p>
+      <div class="col-xs-12 sort">
+        <div class="col-xs-7">
+          <h4>Austin, TX</h4>
+        </div>
+        <div class="col-xs-5">
+          <div class="pull-right">
+            <%= select_tag :sort, options_for_select(Vehicle::SORT, params[:sort] || 'price ASC') %>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <hr>
+        </div>
+      </div>
+      <div class="col-xs-12 placeholders">
+       <% @vehicles.each do |vehicle| %>
+        <div class="col-sm-12 row-space-2 col-md-3">
+          <div class="col-sm-12 placeholder vehicle-search-block no-padding">
+            <%= link_to vehicle do %>
+              <%= image_tag vehicle.photos[0].image.url(:medium), class: 'center-block img-responsive' %>
+              <span class="text-muted price"><%= number_to_currency(vehicle.nightly_amount) %> <small>Per night</small></span>
+            <% end %>
+            <%= link_to vehicle.user do %>
+              <%= image_tag avatar_url(vehicle.user), class:"img-circle avatar-medium" %>
+            <% end %>
+            <h4><%= vehicle.listing_name %></h4>
+            <span class="text-muted"><%= vehicle.vehicle_type %></span>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

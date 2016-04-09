@@ -16,6 +16,11 @@
   padding: $panel-body-padding;
 }
 
+.card-body {
+  @include clearfix;
+  padding: 10px 0;
+}
+
 .card-title {
   margin-top: 0;
   margin-bottom: .5em;
@@ -59,8 +64,14 @@
 
 .card-header {
   padding: $panel-heading-padding;
-  background-color: $panel-default-heading-bg;
-  border-bottom: 1px solid $panel-default-border;
+  background-color: #0f9d58;
+  // border-bottom: 1px solid $panel-default-border;
+  * {
+    color: #fff;
+    .small, small {
+      color: #fff;
+    }
+  }
 
   &:first-child {
     border-radius: (($border-radius-base - 2) - 1) (($border-radius-base - 2) - 1) 0 0;
@@ -101,6 +112,9 @@
 .card-danger {
   background-color: $brand-danger;
   border-color: $brand-danger;
+}
+.card-panel {
+  background: #fff;
 }
 
 

@@ -10,14 +10,14 @@
           <div class="col-md-6 select">
             <div class="form-group">
               <label>Vehicle Type</label>
-              <%= f.select :vehicle_type, [["1", "1"], ["2", "2"], ["3", "3"]], prompt: 'Select...', class: 'form-control' %>
+              <%= f.select :vehicle_type, Vehicle::TYPES, prompt: 'Select...', class: 'form-control' %>
             </div>
           </div>
 
           <div class="col-md-6 select">
             <div class="form-group">
               <label>Accommodates</label>
-              <%= f.select :accommodates, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6+", 6]], prompt: 'Select...', class: 'form-control' %>
+              <%= f.select :accommodates, Vehicle::PASSENGERS, prompt: 'Select...', class: 'form-control' %>
             </div>
           </div>
 
@@ -41,14 +41,8 @@
             </div>
           </div>
 
-          <!-- <div class="row">
-            <div class="form-group">
-              <label><%# f.check_box :active %> Active</label>
-            </div>
-          </div> -->
-
           <div class="actions">
-            <%= f.submit "Create", class: "btn btn-primary" %>
+            <%= f.submit "Create", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
           </div>
       <% end %>
     </div>

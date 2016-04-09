@@ -1,0 +1,13 @@
+<%- @res = [] %>
+<%- @reservations.each do |reservation| %>
+<%- @res << "\"#{reservation.on_date}\":
+            {\"status\":\"#{reservation.state}\",
+            \"reservation_id\":\"#{reservation.id}\",
+            \"price\":#{@vehicle.nightly_amount},
+            \"weekly_price\":#{@vehicle.weekly_amount},
+            \"monthly_price\":#{@vehicle.monthly_amount},
+            \"special_price\":#{@vehicle.special_nightly_discount},
+            \"minimum_stay\":#{@vehicle.minimum_stay},
+            \"bind\":0}" %>
+<%- end %>
+{<%= raw @res.join(",") %>}

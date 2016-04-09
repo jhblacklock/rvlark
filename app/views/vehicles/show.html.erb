@@ -1,181 +1,255 @@
-<div class="panel panel-default">
-	<div class="panel-body">
-
-		<!-- Image -->
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<%= image_tag @photos[0].image.url, class: "img-responsive" if @photos.length > 0 %>
-			</div>
-		</div>
-
-		<br/>
-		<!-- Main Info -->
-		<div class="row">
+<div id="photos">
+	<div class="cover-img" style="background-image: url(<%= @photos[0].image.url if @photos.length > 0 %>)">
+	</div>
+	<div class="row absolute-top-left">
+		<div class="container padding">
 			<div class="col-md-8">
 				<div class="row">
-					<div class="col-md-3 text-center">
-						<%= image_tag avatar_url(@vehicle.user), class:"img-circle avatar-large" %>
-						<br/><br/>
-						<%= @vehicle.user.first_name %> <%= @vehicle.user.last_name %>
-					</div>
-					<div class="col-md-9">
-						<h4><%= @vehicle.listing_name %></h4>
-						<%=# @vehicle.address %>
-
-						<div class="row text-centre row-space-1">
-							<div class="col-sm-3">
-								<i class="fa fa-home fa-2x"></i>
-							</div>
-							<div class="col-sm-3">
-								<i class="fa fa-user fa-2x"></i>
-							</div>
-							<div class="col-sm-3">
-								<i class="fa fa-bed fa-2x"></i>
-							</div>
-							<div class="col-sm-3">
-								<i class="fa fa-ship fa-2x"></i>
-							</div>
-						</div>
-						<div class="row text-centre row-space-1">
-							<div class="col-sm-3">
-								<%= @vehicle.accomodates %> <%= @vehicle.accomodates > 1 ? "Guests":"Guest"  %>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<!-- Reservation form -->
-				<%= render 'reservations/form' %>
-			</div>
-		</div>
-
-		<!-- About -->
-		<div class="row">
-			<div class="col-md-12">
-				<h2>About This Listing</h2>
-				<p><%= @vehicle.summary%></p>
-			</div>
-		</div>
-
-		<!-- Amenities -->
-		<div class="row">
-			<div class="col-md-2">
-				<h2>Amenities</h2>
-			</div>
-			<div class="row">
-				<div class="col-md-10">
-					<div class="row">
-						<div class="col-md-6">
-							<ul class="amenities">
-								<li class="">#</li>
-							</ul>
-						</div>
-						<div class="col-md-6">
-							<ul class="amenities">
-								<li class="">#</li>
-							</ul>
-						</div>
+					<div class="col-md-3 txt-center">
+						<%= link_to image_tag(avatar_url(@vehicle.user), class:"img-circle avatar-large"), @vehicle.user %>
+						<p><%= @vehicle.user.first_name %></p>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<!-- Carousel -->
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<div id="myCarousel" class="carousel slide" data-ride="carousel">
-				  <!-- Indicators -->
-				  <% if @photos %>
-					  <ol class="carousel-indicators">
-					  	<% @photos.each do |photo| %>
-					    	<li data-target="#myCarousel" data-slide-to="<%= photo.id %>"></li>
-					    <% end%>
-					  </ol>
-				  <% end %>
-				  <!-- Wrapper for slides -->
-				  <div class="carousel-inner" role="listbox">
-				    <% if @photos %>
-				    	<% @photos.each do |photo| %>
-						    <div class="item <%= 'active' if photo.id.equal? @photos[0].id %>">
-						      <%= image_tag photo.image.url()%>
-						    </div>
-					    <% end %>
-				    <% end %>
-				  </div>
-
-				  <!-- Left and right controls -->
-				  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-				    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				    <span class="sr-only">Previous</span>
-				  </a>
-				  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-				    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				    <span class="sr-only">Next</span>
-				  </a>
-				</div>
-
-			</div>
-		</div>
-
-		<br/>
-		<hr>
-
-		<!-- Google Map -->
-		<div class="row">
-			<div class="col-md-12">
-				<div id="map">
-
-				</div>
-				<style>
-					#map{
-						width: 100%;
-						height: 400px;
-					}
-				</style>
-				<script src="https://maps.googleapis.com/maps/api/js"></script>
-			    <script>
-			      function initialize() {
-			        var mapCanvas = document.getElementById('map');
-			        var mapOptions = {
-			          center: new google.maps.LatLng(<%= @vehicle.latitude %>, <%= @vehicle.longitude %>),
-			          zoom: 14,
-			          mapTypeId: google.maps.MapTypeId.ROADMAP
-			        }
-			        var map = new google.maps.Map(mapCanvas, mapOptions);
-
-			        var marker = new google.maps.Marker({
-			        	position: new google.maps.LatLng(<%= @vehicle.latitude %>, <%= @vehicle.longitude %>),
-			        	title: "Airbnb Clone"
-			        });
-			        marker.setMap(map);
-			      }
-			      google.maps.event.addDomListener(window, 'load', initialize);
-			    </script>
-
-			</div>
-		</div>
-
-		<!-- Close by Vehicles -->
-		<% if @vehicle.nearbys.size > 0 %>
-			<h3>Nearby</h3>
-			<div class="row">
-				<!-- Find nearby vehicles within 10 miles radius -->
-				<% for vehicle in @vehicle.nearbys(10) %>
-					<div class="col-md-3">
-						<div class="panel panel-default">
-							<div class="panel-heading preview">
-								<%= image_tag vehicle.photos[0].image.url(:medium) %>
-							</div>
-							<div class="panel-body">
-								<%= link_to vehicle.listing_name, vehicle %>
-								(<%= vehicle.distance.round(2) %> miles away)
-							</div>
-						</div>
-					</div>
-				<% end %>
-			</div>
-		<% end %>
 	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4 col-sm-push-8">
+
+			<div class="row">
+				<div class="padding">
+					<div class="col-md-12">
+						<div class="card card-panel">
+							<div class="card-header">
+								<h4><%= number_to_currency(@vehicle.nightly_amount, precision: 0) %><span class="pull-right small">Per night</span></h4>
+							</div>
+							<p class="bg-danger flash full-width hide" id="checkout-flash">Not all days are available.</p>
+							<div class="card-body">
+								<div class="col-sm-12">
+								<%= react_component('Checkout', url: "/vehicles/1/reservations/price",
+																								bookingUrl: "/vehicles/1/bookings",
+																								pickup: @pickup,
+																								dropoff: @dropoff,
+																								minimumStay: @vehicle.minimum_stay
+																		)
+								%>
+								<%# render 'reservations/form' %>
+								<!-- <p><b>Minimum Stay:</b> <%# @vehicle.minimum_stay %> <%# 'night'.pluralize(@vehicle.minimum_stay) %></p> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-8 col-sm-pull-4">
+			<!-- About -->
+			<div class="row">
+				<div class="padding">
+					<div class="col-md-12">
+						<h2><%= @vehicle.listing_name %></h2>
+						<p><%= @vehicle.summary %></p>
+					</div>
+				</div>
+			</div>
+			<!-- Amenities -->
+			<div class="row">
+				<div class="padding">
+					<div class="col-md-12">
+						<h2>About this RV</h2>
+					</div>
+					<div class="col-md-4">
+						<p><b>Sleeps</b> <%= @vehicle.accommodates %> <%= "Guest".pluralize(@vehicle.accommodates)  %></p>
+						<p><b>Type</b> <%= @vehicle.vehicle_type %></p>
+					</div>
+					<div class="col-md-8">
+						<% Amenity.all.in_groups_of(2).each do |group| %>
+							<% group.compact.each do |amenity| %>
+								<div class="col-md-6 no-padding">
+									<%- if @vehicle.amenities.include?(amenity) %>
+										<p><%= amenity.name %></p>
+									<%- else %>
+										<p><s><%= amenity.name %></s></p>
+									<% end %>
+								</div>
+							<% end %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+
+			<!-- Prices -->
+			<div class="row">
+				<div class="padding">
+					<div class="col-md-12">
+						<h2>Pricing</h2>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-6 no-padding">
+							<p><b>Nightly:</b> <%= @vehicle.nightly_amount %></p>
+							<p><b>Special Discount:</b> <%= @vehicle.special_amount %></p>
+						</div>
+						<div class="col-md-6 no-padding">
+							<p><b>Weekly:</b> <%= @vehicle.weekly_amount %></p>
+							<p><b>Monthly:</b> <%= @vehicle.monthly_amount %></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+	<!-- Carousel -->
+	<div class="row">
+		<div class="container padding">
+		<div class="col-md-12">
+				<h2>Photos</h2>
+			</div>
+			<div class="col-md-12">
+			 	<% @photos.each do |photo| %>
+					 <div class="picture" itemscope itemtype="http://schema.org/ImageGallery">
+					   <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+					     <a href="<%= photo.image.url(:original) %>" itemprop="contentUrl" data-size="1000x667" data-index="0">
+					       <img src="<%= photo.image.url(:thumb) %>" height="75" width="100" itemprop="thumbnail" alt="Beach">
+					     </a>
+					   </figure>
+					 </div>
+					  </div>
+				 <% end %>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<br/>
+
+	<!-- Prices -->
+	<div class="row">
+		<div class="container padding">
+			<div class="col-md-12">
+				<h2>About the Owner</h2>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-6 no-padding">
+					<p>
+						<%= image_tag avatar_url(@vehicle.user), class:"img-circle avatar-large" %>
+						<%= @vehicle.user.first_name %>
+					</p>
+					<p><b>Member Since: </b><%= @vehicle.user.member_since %></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Google Map -->
+	<div class="row">
+		<div class="col-md-12">
+			<div id="map">
+
+			</div>
+			<style>
+				#map{
+					width: 100%;
+					height: 400px;
+				}
+			</style>
+			<script src="https://maps.googleapis.com/maps/api/js"></script>
+		    <script>
+		      function initialize() {
+		        var mapCanvas = document.getElementById('map');
+		        var mapOptions = {
+		          center: new google.maps.LatLng(<%= @vehicle.latitude %>, <%= @vehicle.longitude %>),
+		          zoom: 14,
+		          mapTypeId: google.maps.MapTypeId.ROADMAP
+		        }
+		        var map = new google.maps.Map(mapCanvas, mapOptions);
+
+		        var marker = new google.maps.Marker({
+		        	position: new google.maps.LatLng(<%= @vehicle.latitude %>, <%= @vehicle.longitude %>),
+		        	title: "Airbnb Clone"
+		        });
+		        marker.setMap(map);
+		      }
+		      google.maps.event.addDomListener(window, 'load', initialize);
+		    </script>
+
+		</div>
+	</div>
+
+	<!-- Close by Vehicles -->
+	<% if @vehicle.nearbys && @vehicle.nearbys.size > 0 %>
+		<h3>Nearby</h3>
+		<div class="row">
+			<!-- Find nearby vehicles within 10 miles radius -->
+			<% for vehicle in @vehicle.nearbys(10) %>
+				<div class="col-md-3">
+					<div class="panel panel-default">
+						<div class="panel-heading preview">
+							<%= image_tag vehicle.photos[0].image.url(:medium) %>
+						</div>
+						<div class="panel-body">
+							<%= link_to vehicle.listing_name, vehicle %>
+							(<%= vehicle.distance.round(2) %> miles away)
+						</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
 </div>

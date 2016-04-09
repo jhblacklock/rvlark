@@ -21,11 +21,14 @@
             <%= render 'shared/devisemes' %>
 
             <div class="form-group">
-              <%= f.text_field :image, autofocus: true, placeholder: "Image", class: "form-control" %>
+              <span class="btn btn-default btn-file">
+                <i class="fa fa-cloud-upload fa-lg"></i> Upload Photo
+                <%= f.file_field :avatar, type: :file %>
+              </span>
             </div>
 
             <div class="actions">
-              <%= f.submit "Save", class: "btn btn-primary" %>
+              <%= f.submit "Save Photo", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
             </div>
           <% end %>
         </div>

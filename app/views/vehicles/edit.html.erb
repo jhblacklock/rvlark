@@ -2,33 +2,35 @@
 <div class="container">
   <div class="row">
     <%= render partial: 'shared/vehicle_nav', locals: { active: :basic } %>
-
     <div class="col-md-9">
       <div class="panel panel-default">
         <div class="panel-heading">
           Your RV
-          <%= link_to "View RV listing", user_path(current_user.id), class: "pull-right txt-small" %>
+          <%= link_to "View RV listing", vehicle_path(@vehicle), class: "pull-right txt-small" %>
         </div>
         <div class="panel-body">
             <%= form_for(@vehicle, url: vehicle_path(@vehicle), html: { method: :put }) do |f| %>
-
               <div class="row">
+                <div class="col-md-12 ">
+                  <div class="form-group checkbox">
+                    <%= f.check_box :active %>
+                    <%= f.label :active %>
+                  </div>
+                  <hr/>
+                </div>
                 <div class="col-md-6 select">
                   <div class="form-group">
                     <label>Vehicle Type</label>
-                    <%= f.select :vehicle_type, [["1", "1"], ["2", "2"], ["3", "3"]], prompt: 'Select...', class: 'form-control' %>
+                    <%= f.select :vehicle_type, Vehicle::TYPES, prompt: 'Select...', class: 'form-control' %>
                   </div>
                 </div>
-
                 <div class="col-md-6 select">
                   <div class="form-group">
                     <label>Accommodates</label>
-                    <%= f.select :accommodates, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6+", 6]], prompt: 'Select...', class: 'form-control' %>
+                    <%= f.select :accommodates, Vehicle::PASSENGERS, prompt: 'Select...', class: 'form-control' %>
                   </div>
                 </div>
-
               </div>
-
               <div class="row">
                 <div class="col-md-12 select">
                   <div class="form-group">
@@ -37,7 +39,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
@@ -46,9 +47,8 @@
                   </div>
                 </div>
               </div>
-
               <div class="actions">
-                <%= f.submit "Save", class: "btn btn-primary" %>
+                <%= f.submit "Save", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
               </div>
             <% end %>
           </div>

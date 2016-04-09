@@ -5,7 +5,7 @@
 		<div class="col-md-3">
 			<ul class="sidebar-list">
 				<li class="sidebar-item"><%= link_to "Your Listing", vehicles_path, class:"sidebar-link active"%></li>
-				<li class="sidebar-item"><%= link_to "Your Reservations", vehicles_path, class:"sidebar-link"%></li>
+				<li class="sidebar-item"><%= link_to "Your Reservations", user_reservations_path(current_user), class:"sidebar-link"%></li>
 			</ul>
 		</div>
 		<div class="col-md-9">
@@ -15,14 +15,15 @@
 				</div>
 				<div class="panel-body">
 					<% @vehicles.each do |vehicle| %>
-						<div class="row">
-							<div class="col-md-2">
+						<div class="row row-table">
+							<div class="col-md-2 col-middle">
 								<%= image_tag vehicle.photos[0].image.url(:thumb) if vehicle.photos.length > 0 %>
 							</div>
-							<div class="col-md-7">
-								<h4><%= vehicle.listing_name %></h4>
+							<div class="col-md-7 col-middle">
+								<h4><%= link_to vehicle.listing_name, vehicle_path(vehicle), class: 'txt-normal' %></h4>
+								<%= link_to "Manage listing, booking and calendar", edit_vehicle_path(vehicle) %>
 							</div>
-							<div class="col-md-3 right">
+							<div class="col-md-3 text-right col-middle hidden-sm hidden-xs">
 								<%= link_to "Manage", edit_vehicle_path(vehicle), class: "btn btn-primary"%>
 							</div>
 						</div>

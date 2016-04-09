@@ -6,8 +6,8 @@
 			<div class="center">
 				<%= image_tag avatar_url(@user), class: "avatar-full"%>
 			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">Verification</div>
+			<div class="panel panel-default spacer">
+				<div class="panel-heading">Verified</div>
 				<div class="panel-body">
 					Email</br>
 					Phone number
@@ -17,9 +17,23 @@
 
 		<div class="col-md-9">
 			<h2><%= @user.first_name %> <%= @user.last_name %></h2>
+			<p class="txt-heavy">Member since <%= @user.member_since %></p>
 			<div class="description row-space-3">
 				<%= @user.description %>
 			</div>
+
+			<h2>Listings (<%= @user.vehicles.count %>)</h2>
+			<%- @user.vehicles.each do |vehicle| %>
+				<div class="item-image col-md-4" style="background-image: url(<%= vehicle.main_photo.image.url(:medium) if vehicle.main_photo %>)">
+					<%= link_to vehicle_path(vehicle) do %>
+						<span class="image-caption">
+							<%= vehicle.listing_name %> in
+							<%= vehicle.city_state %>
+						</span>
+					<% end %>
+					</a>
+				</div>
+			<%- end %>
 		</div>
 	</div>
 </div>

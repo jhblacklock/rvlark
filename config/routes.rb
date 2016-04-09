@@ -10,13 +10,31 @@ Rails.application.routes.draw do
                sessions: 'sessions'
              }
 
-  resources :users, only: :show
-  resources :vehicles
-  resources :photos
-
-  resources :vehicles do
-    resources :reservations, only: [:create]
+  resources :users, only: :show do
+    resources :reservations, only: [:index] do
+      collection do
+        get :trips
+      end
+    end
   end
+
+  resources :photos
+  resources :vehicles do
+    resources :bookings, only: [:create]
+    resources :reservations, only: [:create] do
+      collection do
+        get :available
+        post :book
+        post :price
+      end
+    end
+  end
+
+  resources :bookings
+
+  get '/s' => 'vehicles#search_gate', as: :search_vehicles_gate
+
+  get '/s/(:state)/(:city)' => 'vehicles#search', as: :search_vehicles
 
   get '/preload' => 'reservations#preload'
 end

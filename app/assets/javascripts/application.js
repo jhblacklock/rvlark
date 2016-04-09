@@ -13,7 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui/datepicker
-//= require_tree .
 //= require bootstrap-sprockets
 //= require toastr
 //= require toastr_overrides
+//= require photoswipe
+//= require react
+//= require react_ujs
+//= require components
+//= require_tree .

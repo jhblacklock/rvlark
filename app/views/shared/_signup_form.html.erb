@@ -15,5 +15,5 @@
     <%= f.password_field :password, class: 'form-control' %>
     <small class="text-danger"><%= resource.errors[:password].to_sentence if resource.errors[:password] %></small>
   </div>
-  <%= f.submit "Sign up", class: 'btn btn-default btn-register' %>
+  <%= f.submit "Sign up", class: 'btn btn-default btn-register', data: { disable_with: "Please wait..." } %>
 <% end %>

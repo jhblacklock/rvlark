@@ -1,6 +1,10 @@
 module ApplicationHelper
+  def pagination_options
+    { page: params[:page] || 1, per_page: 20 }
+  end
+
   def avatar_url(user)
-    user.image
+    user.avatar.url(:medium) || gravatar(user)
   end
 
   def custom_bootstrap_flash

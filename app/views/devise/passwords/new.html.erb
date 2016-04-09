@@ -10,7 +10,7 @@
 		    <%= f.email_field :email, autofocus: true, class:"form-control", placeholder:"Email" %>
 		  </div>
 
-		  <%= f.submit "Send reset link", class: "btn btn-danger"%>
+		  <%= f.submit "Send reset link", class: "btn btn-danger", data: { disable_with: "Please wait..." } %>
 		<% end %>
 	</div>
 </div>

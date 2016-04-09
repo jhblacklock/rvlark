@@ -18,58 +18,37 @@
             <div class="col-md-10 col-md-offset-1">
               <div class="form-section">
                 <div class="row">
-                    <form role="form">
+                    <%= form_tag search_vehicles_path(location: ''), method: :get, id: 'location-search' do %>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="sr-only" for="location">Location</label>
-                          <input type="email" class="form-control" id="location" placeholder="Location">
+                          <%= text_field_tag :formatted_address, nil , class: "form-control", id: "location"  %>
+                          <%= hidden_field_tag :lat, nil, class: "form-control" %>
+                          <%= hidden_field_tag :lng, nil, class: "form-control" %>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
                           <label class="sr-only" for="checkin">Pickup</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="checkin" placeholder="Pickup">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                          </div>
+                          <%= text_field_tag :pickup, params[:pickup] || (Date.today).strftime('%x'), class: "form-control", id: "pickup" %>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
                           <label class="sr-only" for="checkout">Drop-off</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="checkout" placeholder="Drop-off">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                          </div>
+                          <%= text_field_tag :dropoff, params[:dropoff] || (Date.today + 2).strftime('%x'), class: "form-control", id: "dropoff" %>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label class="sr-only" for="guest">Guest</label>
-                          <select id="guest" name="guest" class="form-control">
-                              <option value="1">1 Guest</option>
-                              <option value="2">2 Guests</option>
-                              <option value="3">3 Guests</option>
-                              <option value="4">4 Guests</option>
-                              <option value="5">5 Guests</option>
-                              <option value="6">6 Guests</option>
-                              <option value="7">7 Guests</option>
-                              <option value="8">8 Guests</option>
-                              <option value="9">9 Guests</option>
-                              <option value="10">10 Guests</option>
-                              <option value="11">11 Guests</option>
-                              <option value="12">12 Guests</option>
-                              <option value="13">13 Guests</option>
-                              <option value="14">14 Guests</option>
-                              <option value="15">15 Guests</option>
-                              <option value="16">16+ Guests</option>
-                          </select>
+                          <label class="sr-only" for="passengers">Passengers</label>
+                          <%= select_tag :passengers, options_for_select(Vehicle::PASSENGERS) %>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <button type="submit" class="btn btn-default btn-primary">Search</button>
                       </div>
-                    </form>
+                    <% end %>
                 </div>
               </div>
             </div>

@@ -62,6 +62,10 @@ $(function(){
       openRegisterModal();
   });
 
+  $(document).on('submit', function(e) {
+    $(this).find('.btn').attr('disabled', true);
+  });
+
 
   $(document).on('submit', '#login_form', function(e) {
   }).on('ajax:success', '#login_form', function(e, data, status, xhr) {
