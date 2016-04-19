@@ -11,6 +11,7 @@ gem 'active_model_serializers'
 gem 'puma'
 gem 'devise'
 gem 'pg'
+gem 'state_machines-activerecord'
 
 # For authentication
 gem 'omniauth'

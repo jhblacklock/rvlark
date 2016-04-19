@@ -29,11 +29,13 @@ module Vehicles
 
     def pickup
       return unless @pickup
+
       DateTime.strptime(@pickup, '%m/%d/%Y')
     end
 
     def dropoff
       return unless @dropoff
+
       DateTime.strptime(@dropoff, '%m/%d/%Y')
     end
   end

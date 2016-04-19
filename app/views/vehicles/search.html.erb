@@ -8,12 +8,14 @@
         </div>
         <div class="form-section">
           <div class="row">
-              <%= form_for(search_vehicles_gate_path, remote: true) do %>
+              <%= form_for(search_vehicles_gate_path, html: { id: 'search', method: :get }) do %>
                 <div class="col-md-12">
                   <label for="guest">Location</label>
                   <div class="form-group">
                     <label class="sr-only" for="location">Location</label>
-                    <%= text_field_tag :location, params[:location] || 'Austin, TX', class: "form-control", id: "location" %>
+                    <%= text_field_tag :formatted_address, params[:formatted_address] || 'Austin, TX', class: "form-control", id: "location-search" %>
+                    <%= hidden_field_tag :lat, params[:lat] %>
+                    <%= hidden_field_tag :lng, params[:lat] %>
                   </div>
                   <hr>
                 </div>
@@ -33,7 +35,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="sr-only" for="passengers">Passengers</label>
-                    <%= select_tag :guests, options_for_select(Vehicle::PASSENGERS, params[:passengers] || 1) %>
+                    <%= select_tag :guests, options_for_select(Vehicle::PASSENGERS, params[:guests] || 1) %>
                   </div>
                   <hr>
                 </div>
@@ -42,10 +44,10 @@
                       <label for="guest">Price Range</label>
                     </div>
                     <div class="col-md-6">
-                      <%= select_tag :min_price, options_for_select(Vehicle::MIN_PRICES, params[:min_price] || 100) %>
+                      <%= select_tag :min_price, options_for_select(Vehicle::MIN_PRICES, params[:min_price] || 100), id: 'min-price' %>
                     </div>
                     <div class="col-md-6">
-                      <%= select_tag :max_price, options_for_select(Vehicle::MAX_PRICES, params[:max_price] || 1001) %>
+                      <%= select_tag :max_price, options_for_select(Vehicle::MAX_PRICES, params[:max_price] || 1001), id: 'max-price' %>
                     </div>
                   </div>
                   <hr>
@@ -55,7 +57,7 @@
                     <div class='checkboxes'>
                       <%- Vehicle::TYPES.each do |type| %>
                         <div class="checkbox">
-                          <%= check_box :type, type.second %>
+                          <%= check_box :type, type.second, { checked: (params['type'][type.second] == '1' if params['type']) } %>
                           <%= label_tag :type, type.first %>
                           </div>
                       <% end %>

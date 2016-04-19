@@ -32,14 +32,15 @@ var Checkout = React.createClass({
       url: this.props.bookingUrl,
       dataType: 'json',
       type: 'POST',
-      data: {
-        'checkIn': pickup,
-        'checkOut': dropoff,
-        'totalAmount': totalAmount,
-        'rentalAmount': rentalAmount,
-        'totalNights': totalNights,
-        'serviceFee': serviceFee,
-        'securityDeposit': securityDeposit
+      data: { 'booking': {
+          'checkIn': pickup,
+          'checkOut': dropoff,
+          'totalAmount': totalAmount,
+          'rentalAmount': rentalAmount,
+          'totalNights': totalNights,
+          'serviceFee': serviceFee,
+          'securityDeposit': securityDeposit
+        }
       },
       success: function(data) {
         // this.setState({data: data});

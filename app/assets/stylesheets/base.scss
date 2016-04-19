@@ -59,6 +59,14 @@ body{
     table-layout: fixed;
 }
 
+table th:first-child {
+  border-top: none !important;
+}
+
+.label.pull-right {
+  line-height: 18px;
+}
+
 .item-image {
   a {
     display: block;
@@ -135,6 +143,10 @@ body{
 
 .padding {
   padding: 40px 0;
+}
+
+.header-padding {
+  padding: 10px 0;
 }
 
 .txt-small {

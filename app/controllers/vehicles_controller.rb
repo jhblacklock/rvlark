@@ -4,7 +4,7 @@ class VehiclesController < ApplicationController
 
   def search_gate
     if place?
-      dir = [@place.state.downcase, @place.city].delete_if(&:blank?).join('/')
+      dir = [@place.state, @place.city].delete_if(&:blank?).each(&:downcase).join('/')
       redirect_to "/s/#{dir}?#{search_params}"
     else
       redirect_to :not_found
@@ -88,7 +88,7 @@ class VehiclesController < ApplicationController
   private
 
   def search_params
-    params.slice!(:formatted_address, :controller, :action).to_param
+    params.slice!(:controller, :action).to_param
   end
 
   def place?
@@ -96,6 +96,7 @@ class VehiclesController < ApplicationController
   end
 
   def place
+    ap Geocoder.search(params[:formatted_address]).first
     @place ||= Geocoder.search(params[:formatted_address]).first
   end
 

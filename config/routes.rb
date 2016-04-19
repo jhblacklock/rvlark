@@ -30,7 +30,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings
+  resources :bookings do
+    member do
+      get :accept
+      get :decline
+    end
+  end
 
   get '/s' => 'vehicles#search_gate', as: :search_vehicles_gate
 

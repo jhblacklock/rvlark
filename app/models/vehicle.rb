@@ -18,14 +18,14 @@ class Vehicle < ActiveRecord::Base
 
   before_destroy { amenities.clear }
 
-  TYPES = [['Class B Camping Van', 'Class B'],
-           ['Class C Motor Home', 'Class C'],
-           ['Travel Trailer', 'Travel Trailer'],
-           ['Fifth Wheel', 'Fifth Wheel'],
-           ['Folding Trailer', 'Folding Trailer'],
-           ['Expandable Trailer', 'Expandable Trailer'],
-           ['Sport Utility Trailer', 'Sport Utility Trailer'],
-           ['Truck Camper', 'Truck Camper']].freeze
+  TYPES = [['Class B Camping Van', 'b'],
+           ['Class C Motor Home', 'c'],
+           ['Travel Trailer', 'travel_trailer'],
+           ['Fifth Wheel', 'fifth_wheel'],
+           ['Folding Trailer', 'folding_trailer'],
+           ['Expandable Trailer', 'expandable_trailer'],
+           ['Sport Utility Trailer', 'sport_utility_trailer'],
+           ['Truck Camper', 'truck_camper']].freeze
 
   PASSENGERS = [['1 Passenger', 1], ['2 Passengers', 2], ['3 Passengers', 3], ['4 Passengers', 4], ['5 Passengers', 5], ['6+ Passengers', 6]].freeze
 

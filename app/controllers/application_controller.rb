@@ -7,6 +7,22 @@ class ApplicationController < ActionController::Base
 
   after_filter :store_location
 
+  def deep_underscore_params!(val = request.parameters)
+    case val
+    when Array
+      val.map { |v| deep_underscore_params!(v) }
+    when Hash
+      val.keys.each do |k, v = val[k]|
+        val.delete k
+        val[k.underscore] = deep_underscore_params!(v)
+      end
+
+      params = val
+    else
+      val
+    end
+  end
+
   # Devise overrides
   def store_location
     return unless request.get?

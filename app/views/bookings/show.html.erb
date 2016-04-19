@@ -1,4 +1,66 @@
-<p id="notice"><%= notice %></p>
+<%= render partial: 'shared/secondary_nav', locals: { active: :reservations } %>
 
-<%= link_to 'Edit', edit_booking_path(@booking) %> |
-<%= link_to 'Back', bookings_path %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <ul class="sidebar-list">
+        <li class="sidebar-item"><%= link_to "Your Bookings", bookings_path, class:"sidebar-link active"%></li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Booking request
+          <%- klass = ('label-warning' if @booking.human_state_name == 'pending'),
+                      ('label-success' if @booking.human_state_name == 'accepted'),
+                      ('label-danger' if @booking.human_state_name == 'declined')
+          %>
+          <div class="label pull-right <%= klass.compact[0] %>"><%= @booking.human_state_name.titleize %></div>
+        </div>
+        <div class="panel-body">
+          <table class="table">
+            <th colspan='2'>
+              <div class="row header-padding">
+                <div class="col-md-6">
+                  <p>Request by:</p>
+                  <%= link_to image_tag(avatar_url(@booking.user), class:"img-circle avatar-large"), @booking.user %>
+                  <%= @booking.user.full_name %>
+                </div>
+
+                <div class="col-md-6">
+                  <p>Vehicle:</p>
+                  <%= link_to image_tag(@booking.vehicle.main_photo.image.url(:square), class:"img-circle avatar-large"), @booking.vehicle %>
+                  <%= @booking.vehicle.listing_name %>
+                </div>
+              </div>
+            </th>
+            <tr>
+              <td class="line-description">Duration</td>
+              <td class="line-price"><%= @booking.duration %></td>
+            </tr>
+            <tr>
+              <td class="line-description">Rental Amount</td>
+              <td class="line-price"><%= number_to_currency(@booking.rental_amount, precision: 0) %></td>
+            </tr>
+            <tr>
+              <td class="line-description">Service Fee <i class="fa help-box fa-question-circle"></i></td>
+              <td class="line-price"><%= number_to_currency(@booking.service_fee, precision: 0) %></td>
+            </tr>
+            <tr>
+              <td class="line-description total-description"><strong>Total</strong></td>
+              <td class="total-price"><strong><%= number_to_currency(@booking.total_amount, precision: 0) %></strong></td>
+            </tr>
+            <tr>
+              <%- if @booking.owner == current_user %>
+                <td colspan="2">
+                  <%= link_to 'Accept', accept_booking_path(@booking), class: 'btn btn-success pull-left' %>
+                  <%= link_to 'Decline', decline_booking_path(@booking), class: 'btn btn-danger pull-right' %>
+                </td>
+              <% end %>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

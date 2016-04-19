@@ -63,12 +63,6 @@ $(document).ready(function() {
       return [true, ''];
     }
 
-  $('#front-calendar').DOPFrontendBookingCalendarPRO({
-    'reinitialize': true,
-    'loadURL': '/vehicles/1/reservations/available',
-    'sendURL': '/vehicles/1/reservations/book'
-  });
-
   fetchFreeDays();
 
   var $pswp = $('.pswp')[0];
@@ -105,7 +99,6 @@ $(document).ready(function() {
         showHideOpacity: true
       }
       var lightBox = new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options);
-      console.log(lightBox);
       lightBox.init();
     });
   });
