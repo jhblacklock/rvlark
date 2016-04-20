@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408202923) do
+ActiveRecord::Schema.define(version: 20160420174052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,17 +65,42 @@ ActiveRecord::Schema.define(version: 20160408202923) do
     t.datetime "updated_at",                        null: false
   end
 
+  create_table "destinations", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "slug"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "tagline"
+  end
+
+  add_index "destinations", ["slug"], name: "index_destinations_on_slug", unique: true, using: :btree
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+
   create_table "photos", force: :cascade do |t|
-    t.integer  "vehicle_id"
+    t.integer  "photoable_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "photoable_type"
   end
 
-  add_index "photos", ["vehicle_id"], name: "index_photos_on_vehicle_id", using: :btree
+  add_index "photos", ["photoable_type", "photoable_id"], name: "index_photos_on_photoable_type_and_photoable_id", using: :btree
 
   create_table "prices", force: :cascade do |t|
     t.integer  "vehicle_id"
@@ -134,6 +159,17 @@ ActiveRecord::Schema.define(version: 20160408202923) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "vehicle_types", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "slug"
+    t.string   "tagline"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "vehicle_types", ["slug"], name: "index_vehicle_types_on_slug", unique: true, using: :btree
+
   create_table "vehicles", force: :cascade do |t|
     t.string   "vehicle_type"
     t.integer  "accommodates"
@@ -148,7 +184,6 @@ ActiveRecord::Schema.define(version: 20160408202923) do
 
   add_index "vehicles", ["user_id"], name: "index_vehicles_on_user_id", using: :btree
 
-  add_foreign_key "photos", "vehicles"
   add_foreign_key "prices", "vehicles"
   add_foreign_key "reservations", "users"
   add_foreign_key "reservations", "vehicles"

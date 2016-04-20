@@ -118,7 +118,11 @@ table th:first-child {
 }
 
 .va-middle {
-    vertical-align: middle;
+  vertical-align: middle;
+}
+
+a:hover, a:focus {
+  text-decoration: none;
 }
 
 .txt-white,
@@ -217,6 +221,8 @@ table th:first-child {
 
 .vehicles_new .main-container,
 .vehicles_create .main-container,
+.destinations_show .main-container,
+.vehicle_types_show .main-container,
 .vehicles_show .main-container{
   padding: 0;
 }
@@ -328,6 +334,9 @@ table th:first-child {
   background-color: $primary-color;
   position: relative;
   padding: 80px 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
 }
 
 @media (max-width: 768px) {

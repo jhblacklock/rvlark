@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :vehicle_types
+  resources :vehicle_types
+  resources :destinations
+  resources :destinations
   root 'pages#home'
 
   devise_for :users,

@@ -12,6 +12,7 @@ gem 'puma'
 gem 'devise'
 gem 'pg'
 gem 'state_machines-activerecord'
+gem 'friendly_id', '~> 5.1.0'
 
 # For authentication
 gem 'omniauth'

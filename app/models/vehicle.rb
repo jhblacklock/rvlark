@@ -1,6 +1,6 @@
 class Vehicle < ActiveRecord::Base
   belongs_to :user
-  has_many :photos, dependent: :destroy
+  has_many :photos, dependent: :destroy, as: :photoable
   has_many :reservations, dependent: :destroy
   has_one :price, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy

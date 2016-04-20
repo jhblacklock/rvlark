@@ -1,0 +1,44 @@
+<div class="masthead" style="background-image: url(<%= @destination.main_photo.image.url(:medium) if @destination.main_photo %>)">
+  <div class="va-container container width-50-100">
+    <div class="va-middle">
+      <p class="lead">Where are you headed?</p>
+      <cite class="txt-white">
+        <strong><%= @destination.tagline %></strong>
+      </cite>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h1> <%= @destination.name %></h1>
+      <div class="description row-space-3">
+        <%= raw @destination.description %>
+      </div>
+    </div>
+
+    <div class="col-md-4 padding">
+      <div class="item-image">
+        <% @destination.photos.each do |photo| %>
+           <div class="picture" itemscope itemtype="http://schema.org/ImageGallery">
+             <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+               <a href="<%= photo.image.url(:original) %>" itemprop="contentUrl" data-size="1000x667" data-index="0">
+                 <img src="<%= photo.image.url(:thumb) %>" height="75" width="100" itemprop="thumbnail" alt="Beach">
+               </a>
+             </figure>
+           </div>
+            </div>
+         <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'shared/photo_swipe' %>
+<%= render 'shared/vehicles' %>
+
+
+<div class="txt-center full-width col-sm-12">
+  <a href="/destinations" class="btn btn-default">View More Destinations</a>
+</div>

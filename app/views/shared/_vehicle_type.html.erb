@@ -1,0 +1,12 @@
+<div class="col-sm-6">
+  <div class="card">
+    <%= link_to type do %>
+      <%= image_tag(type.main_photo.image.url(:medium), class: "card-img") if type.main_photo %>
+    <% end %>
+    <div class="card-block">
+      <h4 class="card-title"><%= type.name %></h4>
+      <p class="card-text"><%= type.tagline %></p>
+      <%= link_to 'Learn More', type, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>

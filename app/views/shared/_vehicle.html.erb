@@ -1,0 +1,13 @@
+<div class="col-sm-12 row-space-2 col-md-3">
+  <div class="col-sm-12 placeholder vehicle-search-block no-padding">
+    <%= link_to vehicle do %>
+      <%= image_tag vehicle.photos[0].image.url(:medium), class: 'center-block img-responsive' %>
+      <span class="text-muted price"><%= number_to_currency(vehicle.nightly_amount) %> <small>Per night</small></span>
+    <% end %>
+    <%= link_to vehicle.user do %>
+      <%= image_tag avatar_url(vehicle.user), class:"img-circle avatar-medium" %>
+    <% end %>
+    <h4><%= vehicle.listing_name %></h4>
+    <span class="text-muted"><%= vehicle.vehicle_type %></span>
+  </div>
+</div>

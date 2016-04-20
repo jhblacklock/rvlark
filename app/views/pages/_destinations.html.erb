@@ -1,0 +1,19 @@
+<div class="container padding">
+  <div class="row">
+    <%- @destinations.each do |destination| %>
+      <div class="col-sm-4">
+        <div class="card card-txt austin-card" style="background-image: url(<%= destination.main_photo.image.url(:medium) if destination.main_photo %>)">>
+          <div class="va-container">
+            <%= link_to destination, class: 'va-middle text-center' do %>
+              <span class="txt-upcase txt-white txt-simple txt-heavy"><%= destination.name %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="txt-center full-width col-sm-12">
+      <a href="/destinations" class="btn btn-default">View More Destinations</a>
+    </div>
+  </div>
+</div>

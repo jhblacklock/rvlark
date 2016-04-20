@@ -1,0 +1,9 @@
+<div class="container padding">
+  <div class="row">
+
+    <%- @destinations.each do |destination| %>
+      <%= render partial: 'shared/destination', locals: { destination: destination } %>
+    <%- end %>
+
+  </div>
+</div>

@@ -159,7 +159,8 @@
 
 // Card image
 .card-img {
-  border-radius: $panel-border-radius;
+  border-radius-top: $panel-border-radius;
+  width: 100%;
 }
 .card-img-overlay {
   position: absolute;
